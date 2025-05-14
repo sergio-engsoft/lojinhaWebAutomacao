@@ -31,10 +31,10 @@ jobs:
     # Passo 4: Arquivar os resultados dos testes (opcional, para salvar relatórios)
     - name: Archive test results
       if: always()  # Garantir que os resultados sejam arquivados, mesmo que o teste falhe
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # Usando a versão mais recente (v3) da ação
       with:
         name: test-results
-        path: target/surefire-reports  # Caminho para os relatórios gerados pelo surefire plugin
+        path: target/surefire-reports/**  # Corrigido o caminho para incluir todos os arquivos de relatório gerados
 
     # Passo 5: Publicar cobertura de código (opcional)
     - name: Upload code coverage to Codecov

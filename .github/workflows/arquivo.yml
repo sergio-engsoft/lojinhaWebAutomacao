@@ -23,9 +23,12 @@ jobs:
         distribution: 'temurin'
 
     - name: Set up Maven
-      uses: actions/setup-maven@v1
-      with:
-        maven-version: '3.9.9'
+      run: |
+        wget https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.zip
+        unzip apache-maven-3.9.9-bin.zip
+        mv apache-maven-3.9.9 /usr/local/apache-maven
+        export PATH=/usr/local/apache-maven/bin:$PATH
+        mvn -v
 
     - name: Build and test with Maven
       run: mvn clean install

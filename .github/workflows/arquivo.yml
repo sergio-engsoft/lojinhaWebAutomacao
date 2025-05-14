@@ -47,7 +47,7 @@ jobs:
     # Verifica se o artefato de build .jar foi gerado antes de tentar enviar
     - name: Upload build artifacts if .jar exists
       if: success()  # Somente se a etapa de build foi bem-sucedida
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: build-artifacts
         path: target/*.jar  # Verifique se os arquivos .jar realmente existem em 'target/'

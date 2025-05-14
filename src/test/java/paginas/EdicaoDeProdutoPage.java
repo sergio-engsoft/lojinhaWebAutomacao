@@ -33,13 +33,15 @@ public class EdicaoDeProdutoPage {
         return this;
     }
 
-    public EdicaoDeProdutoPage informarONovoValorDoProduto(String novoValorProduto) {
-        WebDriverWait wait = new WebDriverWait(navegador, Duration.ofSeconds(15));
-        WebElement campoValorProduto = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("produtovalor")));
-        campoValorProduto.clear();
-        campoValorProduto.sendKeys(novoValorProduto);
+    public EdicaoDeProdutoPage informarONovoValorDoProduto(String valor) {
+        WebDriverWait wait = new WebDriverWait(navegador, Duration.ofSeconds(10));
+        WebElement campoValor = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("produtovalor")));
+        campoValor.clear();
+        campoValor.sendKeys(valor);
         return this;
     }
+
+
 
     public EdicaoDeProdutoPage salvarAsInformacoesDoProdutoEditado() {
         navegador.findElement(By.name("action")).click();

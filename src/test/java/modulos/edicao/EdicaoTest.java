@@ -1,6 +1,7 @@
 package modulos.edicao;
 
 import dataFactory.ProdutoDataFactory;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,7 +16,8 @@ public class EdicaoTest {
 
     @BeforeEach
     public void beforeEach() {
-        System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver-win64\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+
         this.navegador = new ChromeDriver();
         this.navegador.manage().window().maximize();
         this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -67,8 +69,10 @@ public class EdicaoTest {
     @DisplayName("Validar edição do valor do produto para zero")
     public void testValidarEdicaoDoValorDoProdutoParaZero() {
         ProdutoDataFactory.criarProdutoDataFactory(navegador);
+        String idProduto = new EdicaoDeProdutoPage(navegador)
+                .capturarIdDoProduto();
                String mensagemApresentado = new EdicaoDeProdutoPage(navegador)
-                .informarONovoValorDoProduto("0")
+                .informarONovoValorDoProduto("000")
                 .salvarAsInformacoesDoProdutoEditado()
                 .capturarMensagemDeAlteracaoComErroApresentada();
         Assertions.assertEquals("O valor do produto deve estar entre R$ 0,01 e R$ 7.000,00", mensagemApresentado);
@@ -78,7 +82,8 @@ public class EdicaoTest {
     @DisplayName("Validar edição do valor do produto para Mais de Sete Mil")
     public void testValidarEdicaoDoValorDoProdutoParaMaisDeSeteMil() {
         ProdutoDataFactory.criarProdutoDataFactory(navegador);
-        navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        String idProduto = new EdicaoDeProdutoPage(navegador)
+                .capturarIdDoProduto();
         String mensagemApresentado = new EdicaoDeProdutoPage(navegador)
                 .informarONovoValorDoProduto("800000")
                 .salvarAsInformacoesDoProdutoEditado()

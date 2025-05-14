@@ -1,6 +1,7 @@
 package modulos.login;
 
 import dataFactory.LoginDataFactory;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,8 +16,9 @@ public class LoginTest {
     private WebDriver navegador;
 
     @BeforeEach
-    public void beforeEach(){
-        System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver-win64\\chromedriver.exe");
+    public void beforeEach() {
+        WebDriverManager.chromedriver().setup();
+
         this.navegador = new ChromeDriver();
         this.navegador.manage().window().maximize();
         this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));

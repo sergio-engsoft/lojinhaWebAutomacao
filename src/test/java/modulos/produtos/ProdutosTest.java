@@ -2,6 +2,7 @@ package modulos.produtos;
 
 import dataFactory.LoginDataFactory;
 import dataFactory.ProdutoDataFactory;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,12 +18,14 @@ public class ProdutosTest {
 
     @BeforeEach
     public void beforeEach() {
-        System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+
         this.navegador = new ChromeDriver();
         this.navegador.manage().window().maximize();
         this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         this.navegador.get("http://165.227.93.41/lojinha-web/v2");
     }
+
 
     @Test
     @DisplayName("Validar produto com valor igual a zero")

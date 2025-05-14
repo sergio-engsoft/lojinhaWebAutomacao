@@ -2,6 +2,7 @@ package modulos.componentes;
 
 import dataFactory.ComponenteDataFactory;
 import dataFactory.ProdutoDataFactory;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,7 +16,8 @@ public class ComponentesTest {
 
     @BeforeEach
     public void beforeEach() {
-        System.setProperty("webdriver.chrome.driver", "C:\\drivers\\chromedriver-win64\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+
         this.navegador = new ChromeDriver();
         this.navegador.manage().window().maximize();
         this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));

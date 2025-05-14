@@ -1,6 +1,5 @@
 name: Build and Test
 
-# Definir os eventos que acionam o workflow
 on:
   push:
     branches:
@@ -9,10 +8,9 @@ on:
     branches:
       - main
 
-# Definir os jobs
 jobs:
   build:
-    runs-on: ubuntu-latest  # Definir o ambiente do GitHub Actions
+    runs-on: ubuntu-latest
 
     steps:
     # Passo 1: Fazer checkout do código do repositório
@@ -26,17 +24,11 @@ jobs:
         java-version: '23'
         distribution: 'temurin'  # Usar o Temurin, distribuição oficial do OpenJDK
 
-    # Passo 3: Configurar o Maven (caso precise de uma versão específica)
-    - name: Set up Maven
-      uses: actions/setup-maven@v2
-      with:
-        maven-version: '3.8.4'  # Especificando a versão do Maven (ajuste conforme necessário)
-
-    # Passo 4: Rodar os testes com Maven (modo verboso para mais detalhes nos logs)
+    # Passo 3: Rodar os testes com Maven (modo verboso para mais detalhes nos logs)
     - name: Run Maven tests (Verbose)
       run: mvn clean test -X  # Rodar Maven no modo verboso para exibir mais detalhes
 
-    # Passo 5: Arquivar os resultados dos testes (opcional, para salvar relatórios)
+    # Passo 4: Arquivar os resultados dos testes (opcional, para salvar relatórios)
     - name: Archive test results
       if: always()  # Garantir que os resultados sejam arquivados, mesmo que o teste falhe
       uses: actions/upload-artifact@v2
@@ -44,7 +36,7 @@ jobs:
         name: test-results
         path: target/surefire-reports  # Caminho para os relatórios gerados pelo surefire plugin
 
-    # Passo 6: Publicar cobertura de código (opcional)
+    # Passo 5: Publicar cobertura de código (opcional)
     - name: Upload code coverage to Codecov
       uses: codecov/codecov-action@v2
       with:

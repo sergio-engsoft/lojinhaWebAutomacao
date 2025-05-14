@@ -20,14 +20,14 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '23'
-        distribution: 'adoptopenjdk'
+        distribution: 'adoptium'
 
     - name: Baixar e configurar o Maven
       uses: actions/setup-java@v2
       with:
         java-version: '23'
         maven-version: '3.8.4'
-        distribution: 'adoptopenjdk'
+        distribution: 'adoptium'
 
     - name: Construir e rodar testes com Maven
       run: mvn clean install
@@ -44,14 +44,14 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '23'
-        distribution: 'adoptopenjdk'
+        distribution: 'adoptium'
 
     - name: Baixar e configurar o Maven
       uses: actions/setup-java@v2
       with:
         java-version: '23'
         maven-version: '3.8.4'
-        distribution: 'adoptopenjdk'
+        distribution: 'adoptium'
 
     - name: Realizar o deploy
       run: |

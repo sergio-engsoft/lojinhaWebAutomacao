@@ -8,10 +8,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>23</maven.compiler.source> <!-- Usando JDK 23 -->
+        <maven.compiler.target>23</maven.compiler.target> <!-- Usando JDK 23 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 
     <dependencies>
         <!-- JUnit 5 for unit testing -->
@@ -59,7 +59,26 @@
 
     <build>
         <plugins>
-            <!-- Surefire Plugin to run tests -->
+            <!-- Plugin do Maven Compiler para compilar com JDK 23 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <release>23</release> <!-- Usa o JDK 23 -->
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.11.2</version> <configuration>
+                <reportDirectory>${project.build.directory}/allure-report</reportDirectory>
+            </configuration>
+            </plugin>
+
+            <!-- Surefire Plugin para rodar os testes -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -68,13 +87,12 @@
                     <dependenciesToScan>
                         <dependency>org.junit.jupiter:junit-jupiter-api</dependency>
                     </dependenciesToScan>
-                    <!-- Relatório gerado pelo Surefire -->
                     <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
                     <useFile>false</useFile>
                 </configuration>
             </plugin>
 
-            <!-- Failsafe Plugin for running integration tests if needed -->
+            <!-- Failsafe Plugin para testes de integração -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>

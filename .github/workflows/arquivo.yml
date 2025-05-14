@@ -16,16 +16,18 @@ jobs:
     - name: Checkout do código
       uses: actions/checkout@v2
 
-    - name: Configurar JDK 23 com Adoptium
-      uses: adoptium/temurin-setup-action@v1
+    - name: Configurar JDK 23 com Adoptium (Temurin)
+      uses: actions/setup-java@v2
       with:
         java-version: '23'
+        distribution: 'temurin'
 
     - name: Baixar e configurar o Maven
       uses: actions/setup-java@v2
       with:
         java-version: '23'
         maven-version: '3.8.4'
+        distribution: 'temurin'
 
     - name: Construir e rodar testes com Maven
       run: mvn clean install
@@ -38,16 +40,18 @@ jobs:
     - name: Checkout do código
       uses: actions/checkout@v2
 
-    - name: Configurar JDK 23 com Adoptium
-      uses: adoptium/temurin-setup-action@v1
+    - name: Configurar JDK 23 com Adoptium (Temurin)
+      uses: actions/setup-java@v2
       with:
         java-version: '23'
+        distribution: 'temurin'
 
     - name: Baixar e configurar o Maven
       uses: actions/setup-java@v2
       with:
         java-version: '23'
         maven-version: '3.8.4'
+        distribution: 'temurin'
 
     - name: Realizar o deploy
       run: |

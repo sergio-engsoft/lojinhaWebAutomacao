@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Set up Maven
-      uses: actions/setup-maven@v3
+      uses: actions/setup-maven@v1
       with:
         maven-version: '3.9.9'
 

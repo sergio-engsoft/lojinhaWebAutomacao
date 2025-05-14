@@ -23,7 +23,7 @@ jobs:
         distribution: 'adoptopenjdk'
 
     - name: Cache Maven dependencies
-      uses: actions/cache@v3  # Atualizado para a versão v3
+      uses: actions/cache@v3
       with:
         path: ~/.m2/repository
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -41,14 +41,14 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: target/surefire-reports/
+        path: target/surefire-reports/*  # Corrigido para garantir que o caminho está correto
 
     - name: Archive build artifacts
       if: success()
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: target/*.jar
+        path: target/*.jar  # Garantir que os arquivos .jar estão no diretório de destino
 
   notify:
     if: failure()

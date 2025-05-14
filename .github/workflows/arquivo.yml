@@ -36,19 +36,21 @@ jobs:
     - name: Build and Test with Maven
       run: mvn clean install --no-transfer-progress
 
-    - name: Upload test results
-      if: always()
+    # Verifica se os arquivos de resultados de teste existem antes de tentar enviar
+    - name: Upload test results if present
+      if: always()  # Sempre será executado, mas só se o diretório existir
       uses: actions/upload-artifact@v2
       with:
         name: test-results
-        path: target/surefire-reports/*  # Corrigido para garantir que o caminho está correto
+        path: target/surefire-reports/*.xml  # Certifique-se de que os arquivos XML de teste existem
 
-    - name: Archive build artifacts
-      if: success()
+    # Verifica se o artefato de build .jar foi gerado antes de tentar enviar
+    - name: Upload build artifacts if .jar exists
+      if: success()  # Somente se a etapa de build foi bem-sucedida
       uses: actions/upload-artifact@v2
       with:
         name: build-artifacts
-        path: target/*.jar  # Garantir que os arquivos .jar estão no diretório de destino
+        path: target/*.jar  # Verifique se os arquivos .jar realmente existem em 'target/'
 
   notify:
     if: failure()

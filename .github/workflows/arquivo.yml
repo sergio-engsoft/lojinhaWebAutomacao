@@ -28,11 +28,10 @@ jobs:
       - name: Install dependencies with Maven
         run: mvn install -DskipTests
 
-      # Passo 4: Instalar o WebDriver do Chrome (usando a ação oficial do Google Chrome)
-      - name: Set up ChromeDriver
-        uses: googlechrome/setup-chromedriver@v2
-        with:
-          chromedriver-version: 'latest'
+      # Passo 4: Instalar dependências do ChromeDriver com WebDriverManager
+      - name: Set up ChromeDriver using WebDriverManager
+        run: |
+          curl -sS https://webdrivermanager.io/setup.sh | bash
 
       # Passo 5: Rodar os testes com Maven
       - name: Run tests

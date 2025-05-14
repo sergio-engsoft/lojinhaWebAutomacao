@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Maven Build and Test
 
 on:
   push:
@@ -13,37 +13,40 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout do código
-      - name: Checkout code
-        uses: actions/checkout@v2
+    # Checkout o código do repositório
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      # Configurar o Maven
-      - name: Set up Maven
-        uses: actions/setup-java@v2
-        with:
-          java-version: '23'
-          distribution: 'adoptopenjdk'
+    # Configurar o JDK 23 (ajuste conforme sua versão do JDK)
+    - name: Set up JDK 23
+      uses: actions/setup-java@v2
+      with:
+        java-version: '23'
+        distribution: 'adoptopenjdk'
 
-      # Cache Maven dependencies
-      - name: Cache Maven dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+    # Configurar o Maven
+    - name: Set up Maven
+      uses: actions/setup-maven@v2
 
-      # Rodar o Maven clean install
-      - name: Build with Maven
-        run: mvn clean install -DskipTests
+    # Cache do repositório Maven (para acelerar o build)
+    - name: Cache Maven dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/*.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
 
-      # Rodar os testes com Maven (JUnit)
-      - name: Run tests with Maven
-        run: mvn test
+    # Rodar o Maven clean install
+    - name: Build with Maven
+      run: mvn clean install -DskipTests=true
 
-      # Adicionar Allure para os relatórios (se aplicável)
-      - name: Publish Allure Test Report
-        if: success()
-        uses: allure-framework/allure2-action@v2
-        with:
-          allure_results: target/allure-results
+    # Rodar os testes
+    - name: Run tests with Maven
+      run: mvn test
+
+    # Publicar relatórios do Allure (se você estiver utilizando Allure)
+    - name: Allure Report
+      if: success()
+      run: |
+        allure serve target/allure-results

@@ -1,5 +1,6 @@
-name: CI and CD for Selenium Automation
+name: Build and Test
 
+# Definir os eventos que acionam o workflow
 on:
   push:
     branches:
@@ -8,26 +9,43 @@ on:
     branches:
       - main
 
+# Definir os jobs
 jobs:
-  ci:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest  # Definir o ambiente do GitHub Actions
 
     steps:
-    - name: Checkout do código
+    # Passo 1: Fazer checkout do código do repositório
+    - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Configurar JDK 23 com Adoptium (Temurin)
+    # Passo 2: Configurar o JDK (OpenJDK 23 com Adoptium)
+    - name: Set up JDK 23 (Adoptium)
       uses: actions/setup-java@v2
       with:
         java-version: '23'
-        distribution: 'temurin'
+        distribution: 'temurin'  # Usar o Temurin, distribuição oficial do OpenJDK
 
-    - name: Configurar o Maven
-      uses: actions/setup-java@v2
+    # Passo 3: Configurar o Maven (caso precise de uma versão específica)
+    - name: Set up Maven
+      uses: actions/setup-maven@v2
       with:
-        java-version: '23'
-        maven-version: '3.8.4'
-        distribution: 'temurin'
+        maven-version: '3.8.4'  # Especificando a versão do Maven (ajuste conforme necessário)
 
-    - name: Construir e rodar testes com Maven
-      run: mvn clean install -B
+    # Passo 4: Rodar os testes com Maven (modo verboso para mais detalhes nos logs)
+    - name: Run Maven tests (Verbose)
+      run: mvn clean test -X  # Rodar Maven no modo verboso para exibir mais detalhes
+
+    # Passo 5: Arquivar os resultados dos testes (opcional, para salvar relatórios)
+    - name: Archive test results
+      if: always()  # Garantir que os resultados sejam arquivados, mesmo que o teste falhe
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: target/surefire-reports  # Caminho para os relatórios gerados pelo surefire plugin
+
+    # Passo 6: Publicar cobertura de código (opcional)
+    - name: Upload code coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}  # Se você usa Codecov para cobertura de código

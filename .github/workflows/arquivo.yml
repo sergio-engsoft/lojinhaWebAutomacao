@@ -1,4 +1,4 @@
-name: CI Lojinha Web Automação
+name: CI/CD Pipeline
 
 on:
   push:
@@ -9,31 +9,41 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do Código
-        uses: actions/checkout@v4
+      # Checkout do código
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Configurar Java
-        uses: actions/setup-java@v3
+      # Configurar o Maven
+      - name: Set up Maven
+        uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
           java-version: '23'
+          distribution: 'adoptopenjdk'
 
-      - name: Instalar Chrome
-        uses: browser-actions/setup-chrome@v1
+      # Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
         with:
-          chrome-version: stable
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      - name: Verificar versão do Chrome
-        run: google-chrome --version
+      # Rodar o Maven clean install
+      - name: Build with Maven
+        run: mvn clean install -DskipTests
 
-      - name: Configurar Maven
-        uses: s4u/setup-maven-action@v1.10.0
+      # Rodar os testes com Maven (JUnit)
+      - name: Run tests with Maven
+        run: mvn test
+
+      # Adicionar Allure para os relatórios (se aplicável)
+      - name: Publish Allure Test Report
+        if: success()
+        uses: allure-framework/allure2-action@v2
         with:
-          maven-version: 3.9.9
-
-      - name: Rodar Testes com Maven
-        run: mvn clean test
+          allure_results: target/allure-results

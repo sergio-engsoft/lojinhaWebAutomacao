@@ -1,49 +1,46 @@
-name: CI/CD Pipeline - LojinhaAutomacaoWeb
+name: Build and Test
 
 on:
   push:
-    branches: [ main, develop ]
+    branches:
+      - main
   pull_request:
-    branches: [ main, develop ]
+    branches:
+      - main
 
 jobs:
   build:
-    name: Build & Test
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
+      # Passo 1: Checkout do código
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Setup Java JDK 23
-        uses: actions/setup-java@v4
+      # Passo 2: Configuração do JDK 23
+      - name: Set up JDK 23
+        uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
           java-version: '23'
+          distribution: 'adoptopenjdk'
 
-      - name: Cache dependências Maven
-        uses: actions/cache@v4
+      # Passo 3: Instalar dependências com Maven
+      - name: Install dependencies with Maven
+        run: mvn install -DskipTests
+
+      # Passo 4: Instalar o WebDriver do Chrome
+      - name: Set up ChromeDriver
+        uses: actions/setup-chromedriver@v1
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+          chromedriver-version: 'latest'
 
-      - name: Build projeto com Maven
-        run: mvn clean install -DskipTests
-
-      - name: Executar testes (JUnit + Selenium)
+      # Passo 5: Rodar os testes com Maven
+      - name: Run tests
         run: mvn test
 
-  deploy:
-    name: Deploy (CD)
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
-
-      - name: Simular Deploy (exemplo)
-        run: echo "Deploy realizado com sucesso para produção 🚀"
+      # Passo 6: Enviar relatórios (opcional, caso tenha integração com testes de relatórios como Allure ou semelhante)
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: target/test-logs/

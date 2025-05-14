@@ -4,20 +4,27 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+      # Verifica o repositório
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # Configura o Java com a distribuição Zulu
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
           java-version: '23'
+          distribution: 'zulu'
 
+      # Cache das dependências do Maven
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -26,5 +33,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # Rodar o build do Maven
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean install -B
+
+      # Testes unitários (opcional, caso tenha)
+      - name: Run tests

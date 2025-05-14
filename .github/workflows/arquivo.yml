@@ -20,12 +20,14 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '23'
+        distribution: 'adoptopenjdk'  # Distribuição do JDK
 
     - name: Baixar e configurar o Maven
       uses: actions/setup-java@v2
       with:
         java-version: '23'
         maven-version: '3.8.4'
+        distribution: 'adoptopenjdk'  # Distribuição do JDK
 
     - name: Construir e rodar testes com Maven
       run: mvn clean install
@@ -42,14 +44,4 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '23'
-
-    - name: Baixar e configurar o Maven
-      uses: actions/setup-java@v2
-      with:
-        java-version: '23'
-        maven-version: '3.8.4'
-
-    - name: Realizar o deploy
-      run: |
-        echo "Iniciando o deploy"
-        echo "Deploy realizado com sucesso!"
+        distribution: 'a

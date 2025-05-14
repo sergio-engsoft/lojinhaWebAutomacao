@@ -22,7 +22,7 @@ jobs:
         java-version: '23'
         distribution: 'temurin'
 
-    - name: Baixar e configurar o Maven
+    - name: Configurar o Maven
       uses: actions/setup-java@v2
       with:
         java-version: '23'
@@ -30,30 +30,4 @@ jobs:
         distribution: 'temurin'
 
     - name: Construir e rodar testes com Maven
-      run: mvn clean install
-
-  cd:
-    runs-on: ubuntu-latest
-    needs: ci
-
-    steps:
-    - name: Checkout do código
-      uses: actions/checkout@v2
-
-    - name: Configurar JDK 23 com Adoptium (Temurin)
-      uses: actions/setup-java@v2
-      with:
-        java-version: '23'
-        distribution: 'temurin'
-
-    - name: Baixar e configurar o Maven
-      uses: actions/setup-java@v2
-      with:
-        java-version: '23'
-        maven-version: '3.8.4'
-        distribution: 'temurin'
-
-    - name: Realizar o deploy
-      run: |
-        echo "Iniciando o deploy"
-        echo "Deploy realizado com sucesso!"
+      run: mvn clean install -B

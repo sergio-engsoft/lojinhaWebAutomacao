@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build, Test and Deploy
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Set up Maven
-      uses: actions/setup-maven@v2
+      uses: actions/setup-maven@v3
       with:
         maven-version: '3.9.9'
 

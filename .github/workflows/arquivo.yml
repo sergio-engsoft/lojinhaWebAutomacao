@@ -39,3 +39,8 @@ jobs:
 
       # Testes unitários (opcional, caso tenha)
       - name: Run tests
+        run: mvn test
+
+      # Gerar artefato JAR (se necessário)
+      - name: Package JAR
+        run: mvn package

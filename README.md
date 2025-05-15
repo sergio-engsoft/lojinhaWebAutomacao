@@ -14,24 +14,19 @@ O projeto foi baseado em um curso de automação de testes web ministrado por Ju
 * GitHub Actions (CI/CD)
 * Google Chrome
 
-## Estrutura do Projeto 📁
+## 📂 Estrutura do Projeto
+
+\`\`\`
 LojinhaWebAutomacao/
-├── .github/workflows/
-│   └── maven_ci.yml          # Pipeline de integração e deploy contínuos
-├── src/
-│   └── test/java/
-│       ├── base/
-│       │   └── BaseTest.java   # Classe base para configuração do WebDriver
-│       ├── dataFactory/
-│       │   └── ...               # Geradores de dados para os testes
-│       ├── modulos/
-│       │   ├── componentes/
-│       │   │   └── ComponentesTest.java
-│       │   └── ...               # Casos de teste organizados por módulo
-│       └── paginas/
-│           └── ...               # Page Objects
-├── pom.xml                     # Gerenciador de dependências e build (Maven)
-└── README.md
+├── .github/workflows/maven_ci.yml     # Pipeline de integração e deploy contínuos (GitHub Actions)
+├── src/test/java
+│   ├── base                           # Classe base para configuração do WebDriver
+│   ├── dataFactory                    # Geradores de dados para os testes
+│   ├── modulos                        # Casos de teste organizados por módulo
+│   └── paginas                        # Page Objects (Padrão Page Object Model)
+├── pom.xml                            # Gerenciador de dependências e build (Maven)
+└── README.md                          # Documentação do projeto
+\`\`\`
 
 ## Como Executar os Testes 🧪
 

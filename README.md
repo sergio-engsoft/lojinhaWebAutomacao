@@ -14,9 +14,7 @@ O projeto foi baseado em um curso de automação de testes web ministrado por Ju
 * GitHub Actions (CI/CD)
 * Google Chrome
 
-#!/bin/bash
-
-readme_structure=$(cat <<'EOF'
+ ```bash
 ## Estrutura do Projeto 📁
 
 LojinhaWebAutomacao/
@@ -28,10 +26,7 @@ LojinhaWebAutomacao/
 │   └── paginas                  # Page Objects
 ├── pom.xml                      # Gerenciador de dependências e build (Maven)
 └── README.md
-EOF
-)
-
-echo "$readme_structure"
+```
 
 ## Como Executar os Testes 🧪
 

@@ -8,7 +8,7 @@ O projeto foi baseado em um curso de automação de testes web ministrado por Ju
 * Java 23 (JDK)
 * JUnit 5
 * Selenium WebDriver
-* Maven
+* Maven 3.9.9
 * WebDriverManager
 * Allure Framework (Relatórios de Testes)
 * GitHub Actions (CI/CD)

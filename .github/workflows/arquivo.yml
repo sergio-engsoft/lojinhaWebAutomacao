@@ -1,4 +1,4 @@
-name: CI/CD - Automação Web Selenium Java Maven
+name: CI/CD - Automação Web Selenium
 
 on:
   push:

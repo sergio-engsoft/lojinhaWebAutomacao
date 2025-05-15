@@ -19,12 +19,12 @@ O projeto foi baseado em um curso de automação de testes web ministrado por Ju
 
 LojinhaWebAutomacao/
 ├── .github/workflows/maven_ci.yml     # Pipeline de integração e deploy contínuos
-├── src/test/java                # Testes automatizados
-│   ├── base                     # Classe base para configuração do WebDriver
-│   ├── dataFactory              # Geradores de dados para os testes
-│   ├── modulos                  # Casos de teste organizados por módulo
-│   └── paginas                  # Page Objects
-├── pom.xml                      # Gerenciador de dependências e build (Maven)
+├── src/test/java                      # Testes automatizados
+│   ├── base                           # Classe base para configuração do WebDriver
+│   ├── dataFactory                    # Geradores de dados para os testes
+│   ├── modulos                        # Casos de teste organizados por módulo
+│   └── paginas                        # Page Objects
+├── pom.xml                            # Gerenciador de dependências e build (Maven)
 └── README.md
 ```
 
@@ -41,7 +41,7 @@ LojinhaWebAutomacao/
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/sergio-engsoft/lojinhaWebAutomacao.git](https://github.com/sergio-engsoft/lojinhaWebAutomacao.git)
+    git clone [Repositório LojinhaWebAutomacao no GitHub](https://github.com/sergio-engsoft/lojinhaWebAutomacao.git)
     ```
 
 2.  **Navegue até a pasta do projeto:**

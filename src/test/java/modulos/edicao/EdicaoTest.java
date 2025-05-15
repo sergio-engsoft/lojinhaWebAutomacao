@@ -1,28 +1,15 @@
 package modulos.edicao;
 
+import base.BaseTest;
 import dataFactory.ProdutoDataFactory;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import paginas.EdicaoDeProdutoPage;
 
 
-import java.time.Duration;
+
 
 @DisplayName("Teste Web do Modulo de Edição")
-public class EdicaoTest {
-    private WebDriver navegador;
-
-    @BeforeEach
-    public void beforeEach() {
-        WebDriverManager.chromedriver().setup();
-
-        this.navegador = new ChromeDriver();
-        this.navegador.manage().window().maximize();
-        this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        this.navegador.get("http://165.227.93.41/lojinha-web/v2");
-    }
+public class EdicaoTest extends BaseTest {
 
     @Test
     @DisplayName("Validar acesso a lista de produtos após criação")

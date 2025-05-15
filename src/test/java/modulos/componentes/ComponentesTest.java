@@ -1,28 +1,14 @@
 package modulos.componentes;
 
+import base.BaseTest;
 import dataFactory.ComponenteDataFactory;
 import dataFactory.ProdutoDataFactory;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import paginas.EdicaoDeProdutoPage;
 
-import java.time.Duration;
 
 @DisplayName("Teste Web do Modulo de Componentes")
-public class ComponentesTest {
-    private WebDriver navegador;
-
-    @BeforeEach
-    public void beforeEach() {
-        WebDriverManager.chromedriver().setup();
-
-        this.navegador = new ChromeDriver();
-        this.navegador.manage().window().maximize();
-        this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        this.navegador.get("http://165.227.93.41/lojinha-web/v2");
-    }
+public class ComponentesTest extends BaseTest {
 
     @Test
     @DisplayName("Validar Registrar Componente após criar Produto")

@@ -1,30 +1,13 @@
 package modulos.produtos;
 
+import base.BaseTest;
 import dataFactory.LoginDataFactory;
 import dataFactory.ProdutoDataFactory;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import paginas.EdicaoDeProdutoPage;
 
-
-import java.time.Duration;
-
 @DisplayName("Teste Web do Modulo de Produtos")
-public class ProdutosTest {
-    private WebDriver navegador;
-
-
-    @BeforeEach
-    public void beforeEach() {
-        WebDriverManager.chromedriver().setup();
-
-        this.navegador = new ChromeDriver();
-        this.navegador.manage().window().maximize();
-        this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        this.navegador.get("http://165.227.93.41/lojinha-web/v2");
-    }
+public class ProdutosTest extends BaseTest {
 
 
     @Test

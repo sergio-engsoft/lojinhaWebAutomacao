@@ -1,29 +1,15 @@
 package modulos.login;
 
+import base.BaseTest;
 import dataFactory.LoginDataFactory;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import paginas.LoginPage;
 import java.time.Duration;
 
 @DisplayName("Teste Web do Modulo de Login")
-public class LoginTest {
-
-    private WebDriver navegador;
-
-    @BeforeEach
-    public void beforeEach() {
-        WebDriverManager.chromedriver().setup();
-
-        this.navegador = new ChromeDriver();
-        this.navegador.manage().window().maximize();
-        this.navegador.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        this.navegador.get("http://165.227.93.41/lojinha-web/v2");
-    }
+public class LoginTest extends BaseTest {
 
     @Test
     @DisplayName("Validar login com sucesso")

@@ -1,0 +1,80 @@
+name: CI/CD - Automação Web Selenium
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 23
+        uses: actions/setup-java@v4
+        with:
+          java-version: '23'
+          distribution: 'temurin'
+
+      - name: Cache de dependências Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build com Maven
+        run: mvn clean install -DskipTests
+
+      - name: Configurar ambiente para testes headless
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb google-chrome-stable
+          Xvfb :99 -screen 0 1280x1024x24 &
+        env:
+          DISPLAY: ':99'
+
+      - name: Executar testes com Maven (Headless Chrome/Selenium)
+        run: mvn failsafe:integration-test verify
+        env:
+          DISPLAY: ':99'
+
+      - name: Gerar relatório Allure
+        if: always()
+        run: mvn allure:report
+
+      - name: Upload do relatório Allure como artefato
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/allure-report
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 23
+        uses: actions/setup-java@v4
+        with:
+          java-version: '23'
+          distribution: 'temurin'
+
+      - name: Build para deploy (se necessário)
+        run: mvn clean package
+
+      - name: Deploy para o seu ambiente
+        run: |
+          echo "Implementar aqui os comandos de deploy para o seu ambiente."
+          echo "Exemplos:"
+          echo "  - Fazer upload do arquivo WAR/JAR para um servidor."
+          echo "  - Executar scripts de deploy (SSH, etc.)."
+          echo "  - Usar ferramentas de deploy específicas da sua plataforma de nuvem."

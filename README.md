@@ -69,4 +69,3 @@ O projeto conta com uma pipeline configurada no GitHub Actions (`.github/workflo
 * **Aplicação Lojinha:** [http://165.227.93.41/lojinha-web/v2](http://165.227.93.41/lojinha-web/v2)
 * **Repositório no GitHub:** [https://github.com/sergio-engsoft?tab=repositories](https://github.com/sergio-engsoft?tab=repositories)
 * **Meu LinkedIn:** [https://www.linkedin.com/in/sergio-dos-santos-soares/](https://www.linkedin.com/in/sergio-dos-santos-soares/)
-
